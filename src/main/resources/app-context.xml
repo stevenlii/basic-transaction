@@ -22,7 +22,11 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
         <property name="dataSource" ref="dataSource"/>  
     </bean>  
-      
+      <!-- 关于Spring事务<tx:annotation-driven/>的理解（Controller可以使用@Transactional） - 小单的博客专栏 - 博客频道 - CSDN.NET
+http://blog.csdn.net/catoop/article/details/50067785
+tx:annotation-driven 就是支持事务注解的（@Transactional）
+spring 是使用 aop 通过 asm 操作Java字节码的方式来实现对方法的前后事务管理的 
+ -->
     <tx:annotation-driven transaction-manager="transactionManager"/>  
                   
     <aop:aspectj-autoproxy />  

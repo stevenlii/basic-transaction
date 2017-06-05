@@ -1,8 +1,9 @@
 package cn.partner4java.dao;  
   
 import org.springframework.jdbc.core.support.JdbcDaoSupport;  
-import org.springframework.transaction.annotation.Transactional;  
-  
+import org.springframework.transaction.annotation.Transactional;
+
+import cn.partner4java.myptm.MySession;
 import cn.partner4java.myptm.MySessionFactory;  
   
 /** 
@@ -19,7 +20,8 @@ public class HelloDaoImpl extends JdbcDaoSupport implements HelloDao {
       
     @Transactional  
     public void saveHello(){  
-        mySessionFactory.getSession().save(null);  
-        this.getJdbcTemplate().execute("select * from user");  
+        MySession mySession = mySessionFactory.getSession();  
+        mySession.save(null);
+//        this.getJdbcTemplate().execute("select * from user"); 
     }  
 } 
