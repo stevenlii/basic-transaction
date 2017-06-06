@@ -2,7 +2,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"  
        xmlns:aop="http://www.springframework.org/schema/aop"  
        xmlns:tx="http://www.springframework.org/schema/tx"  
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="  
             http://www.springframework.org/schema/beans  
             http://www.springframework.org/schema/beans/spring-beans.xsd  
@@ -31,11 +32,7 @@ spring 是使用 aop 通过 asm 操作Java字节码的方式来实现对方法�
                   
     <aop:aspectj-autoproxy />  
       
-    <bean id="mySessionFactory" class="cn.partner4java.myptm.MySessionFactory"/>  
-      
-    <bean id="helloDao" class="cn.partner4java.dao.HelloDaoImpl">  
-        <property name="dataSource" ref="dataSource"/>  
-        <property name="mySessionFactory" ref="mySessionFactory"></property>  
-    </bean>  
+   <context:component-scan base-package="cn.partner4java.dao" />
+   <context:component-scan base-package="cn.partner4java.myptm" />
   
 </beans>  
