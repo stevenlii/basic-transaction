@@ -21,58 +21,17 @@ public class Client extends TestCase {
         super.tearDown();   
     }   
     
-    //会开启事务，在事务范围内使用则使用同一个事务，否则开启新事务
+  //在事务之后不会超时
 	@Test
-	public void testRequires(){
+	public void testTimeout1(){
 		sService.addStudent();
 	}
-	
-	
-	//无论何时自身都会开启事务
+	//在事务之中会超时
 	@Test
-	public void testRequiresNew(){
-		sService.addStudent5();
-	}
-	
-	
-	//自身不会开启事务，在事务范围使用抛出异常
-	@Test
-	public void testNever(){
-		sService.addStudent();
-	}
-	
-	//自身不会开启事务，在事务范围内使用挂起事务，运行完毕恢复事务
-	@Test
-	public void testNotSupport(){
-		sService.addStudent4();
-	}
-	
-	//自身不会开启事务，在事务范围内使用挂起事务，运行完毕恢复事务
-	@Test
-	public void testNotSupport1(){
-		sService.addStudent();
-	}
-	
-	
-	//自身不会开启事务，在事务范围内则使用相同事务，否则不使用事务
-	@Test
-	public void testSupport(){
-		sService.addStudent6();
-	}
-	
-	
-	//自身不开启事务，必须在事务环境使用否则报错
-	@Test
-	public void testMandatory(){
-		sService.addStudent1();
-	}
-	
-	
-	//如果没有事务环境其特性同Propagation.REQUIRED,否则嵌套运行事务
-	@Test
-	public void testNested(){
+	public void testTimeout2(){
 		sService.addStudent2();
 	}
+	
 	
 	
 	
