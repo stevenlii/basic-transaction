@@ -7,6 +7,10 @@ http://blog.csdn.net/he90227/article/details/50300039
 Hibernate实现原理 与 缺点 - 每天进步一点点！ - ITeye技术网站
 http://uule.iteye.com/blog/2122797
 lazy get load 序列化
+Hibernate的lazy问题 - 闫小甲的博客 - ITeye技术网站
+http://yanxiaojia.iteye.com/blog/1536533
+Hibernate Lazy属性 - 无可奈何SOS - 博客园
+http://www.cnblogs.com/wukenaihe/archive/2013/06/11/3131640.html
 sessionFactory加载过程
 
 详细解释Spring与Hibernate的整合原理 - 不能说的秘密的博客 - 博客频道 - CSDN.NET(两种方式）
@@ -39,6 +43,8 @@ java中hibernate的Serializable解析 - zygzzp的专栏 - 博客频道 - CSDN.NE
 http://blog.csdn.net/nyistzp/article/details/9008923
 Hibernate POJO在序列化（JSON）时遇到的若干问题 - Gugia桑 - 博客园
 http://www.cnblogs.com/gugia/p/5117735.html
+hibernate的各种保存方式的区别 (save,persist,update,saveOrUpdte,merge,flush,lock)等 - DANCE WITH JAVA - BlogJava
+http://www.blogjava.net/dreamstone/archive/2007/07/29/133071.html
 
 
 遇到的问题
