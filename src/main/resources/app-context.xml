@@ -15,24 +15,46 @@
             http://www.springframework.org/schema/aop/spring-aop.xsd">  
     
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">  
-<!--         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>  
- -->        
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>  
         <property name="url" value="jdbc:mysql://paymoon.com:3306/test"/>  
-        <property name="username" value="username"/>  
-        <property name="password" value="password"/>  
+        <property name="username" value="monitor"/>  
+        <property name="password" value="111111"/>  
     </bean>  
-  
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
-        <property name="dataSource" ref="dataSource"/>  
+  <!--注入datasource给sessionFactory以及数据库的方言和hbm.xml-->
+   <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource">
+            <ref bean="dataSource" />
+        </property>
+        <!-- 导入映射文件所在的路径 -->
+        <!--packagesToScan 加载注解，mappingDirectoryLocations加载这个路径下的所有.hbm.xml-->
+        <property name="packagesToScan">
+            <list>
+                <value>com.paymoon.basic.po</value>
+            </list>
+        </property>
+    <!-- Hibernate其他配置 方言 等-->
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+               <prop key="hibernate.format_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+     <!-- 因为在GenericHibernateDao里，用的是hibernateTemplate，所以需要这个配置，如果用sessionFactory，就不需要了，
+     用sessionFactory的例子见：http://websystique.com/spring/spring4-hibernate4-mysql-maven-integration-example-using-annotations
+     -->
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">  
+        <property name="sessionFactory" ref="sessionFactory"/>  
     </bean>  
     <tx:annotation-driven transaction-manager="transactionManager"/>  
-    <context:component-scan base-package="com.tgb.service"/>
-    
-    <aop:aspectj-autoproxy />  
-     <bean id = "jdbcTemplate"    
-         class = "org.springframework.jdbc.core.JdbcTemplate">    
-         <property name = "dataSource" ref="dataSource"/>    
-    </bean> 
-      
-  
+    <context:component-scan base-package="com.paymoon.basic.service"/>
+    <context:component-scan base-package="com.paymoon.basic.dao"/>
+    <context:component-scan base-package="com.paymoon.basic.po"/>
+  <bean id="persistenceExceptionTranslationPostProcessor"
+        class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 </beans>  
