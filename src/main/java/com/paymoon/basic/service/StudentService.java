@@ -1,5 +1,8 @@
 package com.paymoon.basic.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +19,21 @@ public class StudentService {
 	@Resource(name = "studentDAOImpl")
 	private IStudentDAO studentDAOImpl;
 	
-	@Transactional(timeout = 2) 
 	public void addStudent(){
 		Student student  = new Student();
 		student.setName("hibernate test");
 		studentDAOImpl.create(student);
+		System.out.println("success");
+	}
+	public void addStudentBatch(){
+		List<Student> students = new ArrayList<>();
+		Student student  = new Student();
+		student.setName("batch1 hibernate test");
+		students.add(student);
+		student  = new Student();
+		student.setName("batch2 hibernate test");
+		students.add(student);
+		studentDAOImpl.batchSave(students);
 		System.out.println("success");
 	}
 

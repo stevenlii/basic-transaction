@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.StatelessSession;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -344,7 +345,8 @@ public class GenericHibernateDao<T> {
 	 * @param size
 	 * @create_time 2012-01-05
 	 */
-	public void batchSave(List<T> entityList) {
+	@Deprecated
+	public void batchSaveOld(List<T> entityList) {
 		Assert.notNull(entityList, "entityList不能为空");
 		Session session = hibernateTemplate.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();
@@ -353,6 +355,16 @@ public class GenericHibernateDao<T> {
 		}
 		session.flush();
 		session.clear();
+		transaction.commit();
+		session.close();
+	}
+	public void batchSave(List<T> entityList) {
+		Assert.notNull(entityList, "entityList不能为空");
+		StatelessSession session = hibernateTemplate.getSessionFactory().openStatelessSession();
+		Transaction transaction = session.beginTransaction();
+		for (T entity : entityList) {
+			session.insert(entity);
+		}
 		transaction.commit();
 		session.close();
 	}
