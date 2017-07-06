@@ -2,6 +2,7 @@ package com.paymoon.basic.mappers;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -49,6 +50,10 @@ public interface StudentMapper {
 	 * 使用注解Result达到字段映射的目的（因为Student都一样，所以这里只是一个样子）
 	 */
 	public Student getStudentByUserNameViaResultsAnnotationsMultipleParam(String userName,String id);
+	/**
+	 * 也可以用以下(@Param("userName") String userName的方式，不用也可以的，参数名相同就可以
+	 */
+//	public Student getStudentByUserNameViaResultsAnnotationsMultipleParam(@Param("userName") String userName,@Param("id") String id);
 
 
 }
