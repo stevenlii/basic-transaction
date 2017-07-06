@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import com.paymoon.basic.po.Student;
 
 public interface StudentMapper {
+	
 	@Insert("INSERT INTO student(id,userName, password, firstName,"
 			+ "lastName, dateOfBirth, emailAddress) VALUES"
 			+ "(#{id},#{userName},#{password}, #{firstName}, #{lastName},"
