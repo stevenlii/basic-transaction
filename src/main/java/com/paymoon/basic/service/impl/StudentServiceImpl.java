@@ -40,9 +40,14 @@ public class StudentServiceImpl{
 		Map<String, Object> mapParam = new HashMap<>();
 		mapParam.put("userName", userName);
 		mapParam.put("id", "PM0706161336iqNmW");
-		
 		List<Student> students = sqlSession.selectList("com.paymoon.basic.mappers.StudentMapper.getStudentByUserNameViaResultsAnnotationsMultipleParam", mapParam);
 		return students.get(0);
+	}
+	public Student getStudentBySqlSessionMultipleParamMapper(String userName) {
+//		Map<String, Object> mapParam = new HashMap<>();
+//		mapParam.put("userName", userName);
+//		mapParam.put("id", "PM0706161336iqNmW");
+		return studentMapper.getStudentByUserNameViaResultsAnnotationsMultipleParam(userName, "PM0706161336iqNmW");
 	}
 
 }

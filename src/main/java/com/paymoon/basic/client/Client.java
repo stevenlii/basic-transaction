@@ -48,5 +48,12 @@ public class Client extends TestCase {
 		Student student =  sService.getStudentBySqlSessionMultipleParam("mybatis");
 		System.out.println(student);
 	}
+	//Mappers多参数的使用,与sqlsession不同
+	@Test
+	public void testGetStudentBySqlSessionMultipleParamMapper(){
+		
+		Student student =  sService.getStudentBySqlSessionMultipleParam("mybatis");
+		System.out.println(student);
+	}
 	
 }
