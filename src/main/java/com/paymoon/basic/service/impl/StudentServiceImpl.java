@@ -49,5 +49,12 @@ public class StudentServiceImpl{
 //		mapParam.put("id", "PM0706161336iqNmW");
 		return studentMapper.getStudentByUserNameViaResultsAnnotationsMultipleParam(userName, "PM0706161336iqNmW");
 	}
+	//////////////////// XML-XML-XML-XML/////////////////////////
+	public List<Student> xmlGetAll() {
+		return studentMapper.getAll();
+	}
+	public Student xmlGetByName(String userName) {
+		return studentMapper.getStudentByUserNameViaResultsAnnotationsMultipleParam(userName, "PM0706161336iqNmW");
+	}
 
 }

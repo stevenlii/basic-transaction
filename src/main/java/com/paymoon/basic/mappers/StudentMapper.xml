@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+接口名 -->
+<!--StudentMapper 相当于Interface DAO -->
+<mapper namespace="com.paymoon.basic.mappers.StudentMapper">
+    <!--id应该是接口中的方法，结果类型如没有配置别名则应该使用全名称 -->
+    <!--获得所有图书 -->
+    <select id="getAll" resultType="com.paymoon.basic.po.Student">
+        SELECT * FROM student
+    </select>
+    <!--获得图书对象通过编号 -->
+    <select id="getById" resultType="com.paymoon.basic.po.Student">
+        select id from student where id=#{id}
+    </select>
+    <!-- 增加 -->
+    <insert id="add">
+        INSERT INTO student(id,userName, password, firstName,"
+			+ "lastName, dateOfBirth, emailAddress) VALUES"
+			+ "(#{id},#{userName},#{password}, #{firstName}, #{lastName},"
+			+ "#{dateOfBirth}, #{emailAddress})
+    </insert>
+    <!-- 删除 -->
+    <delete id="delete">
+        delete from student where id=#{id}
+    </delete>
+    <!-- 更新 -->
+    <update id="update">
+        update student set userName=#{userName},firstName=#{firstName}  where id=#{id}
+    </update>
+</mapper>

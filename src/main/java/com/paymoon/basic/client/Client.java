@@ -1,4 +1,6 @@
 package com.paymoon.basic.client;
+import java.util.List;
+
 import org.junit.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -55,5 +57,12 @@ public class Client extends TestCase {
 		Student student =  sService.getStudentBySqlSessionMultipleParam("mybatis");
 		System.out.println(student);
 	}
-	
+	//////////////////// XML-XML-XML-XML/////////////////////////
+
+	@Test
+	public void xmlGetAll(){
+		
+		List<Student> student =  sService.xmlGetAll();
+		System.out.println(student);
+	}
 }

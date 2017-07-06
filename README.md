@@ -1,52 +1,34 @@
 # basic-transaction mybatis
-mybatis
-终结篇：MyBatis原理深入解析（一） - 简书
-http://www.jianshu.com/p/ec40a82cae28
+不同于basic-transaction-spring-mybatis分支
+这个分支将会使用xml和annotation共存的方式
+mybatis有没有annotation的动态SQL语句？ - 开源中国社区
+https://www.oschina.net/question/112957_2133314
 
-http://m.blog.csdn.net/fighterandknight/article/details/51448161
+http://www.javacoder.top/
 
-
-搭建流程
-1、xml文件
-datasource
-sqlSessionFactory
-transactionManager
-即可
-此处还配置了sqlSession，里面也有selectOne这样的方法，关于如何使用这个模板，需要进步研究
- 
-
-2、StudentMapper Interface+注解，就是Dao了
-
-3、Service 直接@Autowired使用，前提是
-<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-	<property name="basePackage" value="com.paymoon.basic.mappers" />
+与：
+Spring、Spring MVC、MyBatis整合文件配置详解 - Pickle - 博客园
+http://www.cnblogs.com/wxisme/p/4924561.html
+的配置方式不同，他也和hibernate一样，两种方式
+如果使用sqlMap的方式，是这样配置：
+<!-- 配置sqlSessionFactory -->
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <!-- 数据库连接池 -->
+    <property name="dataSource" ref="dataSource"/>
+    <!-- 加载Mybatis全局配置文件 -->
+    <property name="configLocation" value="/WEB-INF/classes/mybatis/SqlMapConfig.xml"/>
 </bean>
-配置好了
 
-4、client拿Service使用，前提
-<context:component-scan base-package="com.paymoon.basic.service"></context:component-scan>
+<!-- 配置mapper扫描器 -->
+<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <!-- 扫描包路径，如果需要扫描多个包中间用半角逗号隔开 -->
+    <property name="basePackage" value="com.wxisme.ssm.mapper"></property>
+    <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+</bean>
 
-A)为方便测试改造
-
-StudentServiceImpl 去除实现接口
-Client里面直接引用
-B)SqlSessionTemplate的使用方式
-参照mybatis-spring – MyBatis-Spring | 第五章 使用 SqlSession
-http://www.mybatis.org/spring/zh/sqlsession.html
-猜测
-使用这个的场景
-把Mappers当做配置文件使用，
-仍然写Dao Interface
-仍然写DaoImpl,
-在DaoImpl里面调用Mappers的方法，同时也可以使用SqlSessionTemplate的诸多方法
-
-C)
- c_1)SqlSession中多参数的使用，使用selectList/selectOne时，传Map即可，然后在Mappers改为多参数，如（String userName,String id），这种一般是在DaoImpl里面使用Sqlsession
- c_2)Mappers中多参数的使用，这种一般直接在调用Mapper时，使用就可以了
- 也可以看
- MyBatis! Passing multiple parameter to Mapper DAO - Stack Overflow
-https://stackoverflow.com/questions/6305546/mybatis-passing-multiple-parameter-to-mapper-dao
-中的Andy Pryor的回答。
- Use a Mapper
- 部分
-	
+不使用则
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="dataSource" ref="dataSource" />
+	<property name="typeAliasesPackage" value="com.paymoon.basic.po"/>
+	<property name="mapperLocations" value="classpath*:com/paymoon/basic/mappers/*.xml" />
+</bean>

@@ -24,7 +24,7 @@
 <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 	<property name="dataSource" ref="dataSource" />
 	<property name="typeAliasesPackage" value="com.paymoon.basic.po"/>
-	<property name="mapperLocations" value="classpath*:com/github/elizabetht/mappers/*.xml" />
+	<property name="mapperLocations" value="classpath*:com/paymoon/basic/mappers/*.xml" />
 </bean>
 
 <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
