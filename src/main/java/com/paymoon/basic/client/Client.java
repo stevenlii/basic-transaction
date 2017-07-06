@@ -3,6 +3,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+import com.paymoon.basic.po.Student;
 import com.paymoon.basic.service.StudentService;
 
 import junit.framework.TestCase;
@@ -13,7 +14,7 @@ public class Client extends TestCase {
     protected void setUp() throws Exception {   
         super.setUp();   
         @SuppressWarnings("resource")
-		BeanFactory context = new FileSystemXmlApplicationContext("/src/main/resources/app-context.xml");
+		BeanFactory context = new FileSystemXmlApplicationContext("/src/main/resources/applicationContext.xml");
 	    sService = (StudentService)context.getBean("studentService");   
     }  
     
@@ -28,7 +29,8 @@ public class Client extends TestCase {
 	}
 	@Test
 	public void testAddStudentBatch(){
-		 sService.addStudentBatch();
+		Student student =  sService.getStudentByUserName("mybatis");
+		System.out.println(student);
 	}
 	
 }
