@@ -40,4 +40,5 @@ http://www.mybatis.org/spring/zh/sqlsession.html
 仍然写DaoImpl,
 在DaoImpl里面调用Mappers的方法，同时也可以使用SqlSessionTemplate的诸多方法
 
+C)多参数的使用，使用selectList/selectOne时，传Map即可，然后在Mappers改为多参数，如（String userName,String id）
 	

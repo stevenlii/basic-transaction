@@ -36,6 +36,19 @@ public interface StudentMapper {
 	 * 使用注解Result达到字段映射的目的（因为Student都一样，所以这里只是一个样子）
 	 */
 	public Student getStudentByUserNameViaResultsAnnotations(String userName);
+	@Select("SELECT * FROM student WHERE  1=1 AND userName = #{userName} And id = #{id}")
+	@Results({ 
+		@Result(column = "userName", property = "userName"),
+		@Result(column = "password", property = "password"),
+		@Result(column = "firstName", property = "firstName"),
+		@Result(column = "lastName", property = "lastName"),
+		@Result(column = "dateOfBirth", property = "dateOfBirth"),
+		@Result(column = "emailAddress", property = "emailAddress")
+	}) 
+	/**
+	 * 使用注解Result达到字段映射的目的（因为Student都一样，所以这里只是一个样子）
+	 */
+	public Student getStudentByUserNameViaResultsAnnotationsMultipleParam(String userName,String id);
 
 
 }

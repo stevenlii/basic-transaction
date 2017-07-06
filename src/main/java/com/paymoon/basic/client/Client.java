@@ -33,9 +33,19 @@ public class Client extends TestCase {
 		Student student =  sService.getStudentByUserName("mybatis");
 		System.out.println(student);
 	}
+	//使用sqlSession<理论上使用应该在DaoImpl里面，这里只是测试>
 	@Test
 	public void testGetStudentBySqlSession(){
 		Student student =  sService.getStudentBySqlSession("mybatis");
+		System.out.println(student);
+	}
+	//使用sqlSession<理论上使用应该在DaoImpl里面，这里只是测试>
+	//SqlSession多参数的使用
+	//需要在Mappers里改成多参数，然后这里传haspMap即可
+	@Test
+	public void testGetStudentBySqlSessionMultipleParam(){
+		
+		Student student =  sService.getStudentBySqlSessionMultipleParam("mybatis");
 		System.out.println(student);
 	}
 	

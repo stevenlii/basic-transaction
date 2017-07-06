@@ -1,6 +1,8 @@
 package com.paymoon.basic.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.paymoon.basic.commons.id.Rpid;
 import com.paymoon.basic.mappers.StudentMapper;
 import com.paymoon.basic.po.Student;
-import com.paymoon.basic.service.StudentService;
 @Transactional
 @Service(value="studentServiceimpl")
 public class StudentServiceImpl{
@@ -33,6 +34,14 @@ public class StudentServiceImpl{
 	}
 	public Student getStudentBySqlSession(String userName) {
 		List<Student> students = sqlSession.selectList("com.paymoon.basic.mappers.StudentMapper.getStudentByUserNameViaResultsAnnotations", userName);
+		return students.get(0);
+	}
+	public Student getStudentBySqlSessionMultipleParam(String userName) {
+		Map<String, Object> mapParam = new HashMap<>();
+		mapParam.put("userName", userName);
+		mapParam.put("id", "PM0706161336iqNmW");
+		
+		List<Student> students = sqlSession.selectList("com.paymoon.basic.mappers.StudentMapper.getStudentByUserNameViaResultsAnnotationsMultipleParam", mapParam);
 		return students.get(0);
 	}
 
