@@ -9,18 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.paymoon.basic.cache.RedisUtilPro;
 import com.paymoon.basic.commons.id.Rpid;
 import com.paymoon.basic.mappers.StudentMapper;
 import com.paymoon.basic.po.Student;
+import com.paymoon.basic.service.StudentService;
 @Transactional
 @Service(value="studentServiceimpl")
-public class StudentServiceImpl{
+public class StudentServiceimpl implements StudentService{
 	
 	@Autowired
 	private StudentMapper studentMapper;
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	public void addStudent(){
+	public void addStudent() {
 		Student student  = new Student();
 		student.setUserName("mybatis");
 		student.setId(Rpid.generate());

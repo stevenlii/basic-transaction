@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/cache
+        http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+    <cache:annotation-driven cache-manager="cacheManager" />
+    
+     <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+            <property name="maxIdle" value="300" />
+            <property name="maxTotal" value="600" />
+            <property name="maxWaitMillis" value="1000" />
+            <property name="testOnBorrow" value="true" />
+     </bean>
+<!-- 
+配置多个jedisConnectionFactory - dalan - ITeye技术网站
+http://dalan-123.iteye.com/blog/2222866
+
+Spring整合redis，通过sentinel进行主从切换。(何志雄) - 江宁山人的专栏 - CSDN博客
+http://blog.csdn.net/tzszhzx/article/details/44590871
+ -->
+        <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+            <property name="hostName" value="118.190.7.69"/>
+            <property name="password" value="11oM@nit0r"/>
+            <property name="port" value="6379"/>
+            <property name="poolConfig" ref="poolConfig"/>
+        </bean>
+        <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+            <property name="connectionFactory"   ref="jedisConnectionFactory" />
+        </bean>
+
+        <!-- spring自己的缓存管理器，这里定义了缓存位置名称 ，即注解中的value -->
+        <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+            <property name="caches">
+                <set>
+                    <!-- 这里可以配置多个redis -->
+                    <bean class="test.cache.RedisCache">
+                        <property name="redisTemplate" ref="redisTemplate" />
+                        <property name="name" value="myCache"/>
+                        <!-- myCache名称要在类或方法的注解中使用 -->
+                    </bean>
+                </set>
+            </property>
+        </bean>
+</beans>

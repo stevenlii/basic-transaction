@@ -7,18 +7,18 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.paymoon.basic.po.Student;
 import com.paymoon.basic.service.StudentService;
-import com.paymoon.basic.service.impl.StudentServiceImpl;
+import com.paymoon.basic.service.impl.StudentServiceimpl;
 
 import junit.framework.TestCase;
 
 public class Client extends TestCase {
 
-	private StudentServiceImpl sService;
+	private StudentServiceimpl sService;
     protected void setUp() throws Exception {   
         super.setUp();   
         @SuppressWarnings("resource")
 		BeanFactory context = new FileSystemXmlApplicationContext("/src/main/resources/applicationContext.xml");
-	    sService = (StudentServiceImpl)context.getBean("studentServiceimpl");   
+	    sService = (StudentServiceimpl)context.getBean("studentServiceimpl");   
     }  
     
     protected void tearDown() throws Exception {   
